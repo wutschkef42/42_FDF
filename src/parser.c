@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-static void			stock_coord(t_px *px, char *str)
+static void		stock_coord(t_px *px, char *str)
 {
 	px->flag = 0;
 	px->z = ft_atoi(str);
@@ -59,28 +59,29 @@ static int		stock_lst(t_list **lst, char **tab, int row)
 			stock_coord(&px, tab[col]);
 			lst_ret = ft_lst_push_back(lst, ft_lstnew(&px, sizeof(px)));
 		}
-	   col++;
+		col++;
 	}
 	if (ret && lst_ret)
 		return (1);
 	return (0);
-}	
+}
 
-int		map_parser(t_list **lst, int fd)
+int				map_parser(t_list **lst, int fd)
 {
-	char	*line = NULL;
+	char	*line;
 	char	**tab;
 	int		row;
 	int		brk;
 	int		ret;
 
+	line = NULL;
 	row = 0;
 	while ((ret = get_next_line(fd, &line)) && ret != -1 && brk)
 	{
 		tab = ft_strsplit(line, ' ');
 		free(line);
 		if (tab == 0 && (brk = 0))
-			break;
+			break ;
 		brk = stock_lst(lst, tab, row++);
 		ft_tabclr(tab);
 	}
@@ -88,27 +89,4 @@ int		map_parser(t_list **lst, int fd)
 	if (ret != -1 && brk)
 		return (1);
 	return (0);
-}
-
-void	to_pixel(t_list **points, t_mlx *env)
-{
-	t_list	*tmp;
-
-	if (!*points)
-		return;
-	tmp = *points;
-	while (tmp)
-	{
-
-		((t_px*)(tmp->content))->isox += ft_abs(env->isox_min);
-		((t_px*)(tmp->content))->isoy += ft_abs(env->isoy_min);
-
-				
-		((t_px*)(tmp->content))->isox *= env->gutter_width;
-		//((t_px*)(tmp->content))->isox += env->offset_x;
-		((t_px*)(tmp->content))->isoy *= env->gutter_width / 2;
-	//	((t_px*)(tmp->content))->isoy += env->offset_y;
-		
-		tmp = tmp->next;
-	}
 }

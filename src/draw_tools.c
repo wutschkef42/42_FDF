@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "fdf.h"
 
 void		plot_pixel(int x, int y, t_mlx *env)
@@ -43,21 +42,21 @@ static void	plot_segmentx(t_seg *seg, t_mlx *env)
 	int	e;
 	int	i;
 
-	plot_pixel(seg->x, seg->y, env);	
+	plot_pixel(seg->x, seg->y, env);
 	e = 2 * seg->dy - seg->dx;
 	seg->inc1 = 2 * (seg->dy - seg->dx);
 	seg->inc2 = 2 * seg->dy;
 	i = 0;
 	while (i < seg->dx)
 	{
-		if (e >=0)
+		if (e >= 0)
 		{
 			seg->y += seg->incy;
 			e += seg->inc1;
 		}
 		else
 		{
-			e += seg->inc2;	
+			e += seg->inc2;
 		}
 		seg->x += seg->incx;
 		plot_pixel(seg->x, seg->y, env);
@@ -70,21 +69,21 @@ static void	plot_segmenty(t_seg *seg, t_mlx *env)
 	int	e;
 	int	i;
 
-	plot_pixel(seg->x, seg->y, env);	
+	plot_pixel(seg->x, seg->y, env);
 	e = 2 * seg->dx - seg->dy;
 	seg->inc1 = 2 * (seg->dx - seg->dy);
 	seg->inc2 = 2 * seg->dx;
 	i = 0;
 	while (i < seg->dy)
 	{
-		if (e >=0)
+		if (e >= 0)
 		{
 			seg->x += seg->incx;
 			e += seg->inc1;
 		}
 		else
 		{
-			e += seg->inc2;	
+			e += seg->inc2;
 		}
 		seg->y += seg->incy;
 		plot_pixel(seg->x, seg->y, env);
@@ -92,14 +91,13 @@ static void	plot_segmenty(t_seg *seg, t_mlx *env)
 	}
 }
 
-void	plot_segment(t_px *a, t_px *b, t_mlx *env)
+void		plot_segment(t_px *a, t_px *b, t_mlx *env)
 {
 	t_seg	seg;
 
 	init_seg(a, b, &seg);
 	if (seg.dx > seg.dy)
-		plot_segmentx(&seg, env);			
+		plot_segmentx(&seg, env);
 	else
 		plot_segmenty(&seg, env);
 }
-

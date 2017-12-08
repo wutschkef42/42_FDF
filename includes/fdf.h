@@ -24,8 +24,7 @@
 
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1200
-
-# define GUTTER_WIDTH 	1920 / 400
+# define ZOOM 		2
 
 
 typedef struct			s_seg
@@ -81,12 +80,28 @@ typedef struct			s_px
 	int		z;
 	int		isox;
 	int		isoy;
+	int		color;
 }						t_px;
 
 int		map_parser(t_list **lst, int fd);
 void	plot_pixel(int x, int y, t_mlx *env);
-void	to_pixel(t_list **points, t_mlx *env);
+void	to_pixel(t_list *points, t_mlx *env);
 void	plot_segment(t_px *a, t_px *b, t_mlx *env);
 void	draw_surface(t_list *points, int x, int y, t_mlx *env);
+int     quit(int keycode, void *param);
+
+void	get_offset(t_mlx *env);
+void	get_max_coord(t_mlx *env, t_list *points);
+void	get_iso_dim(t_mlx *env, t_list *points);
+void	get_absolute_dimensions(t_mlx *env, t_list *points);
+void	to_pixel(t_list *points, t_mlx *env);
+void	apply_offset(t_mlx *env, t_list *points);
+void	get_offset(t_mlx *env);
+void	set_gutter(t_mlx *env);
+
+
+
+
+
 
 #endif

@@ -12,10 +12,10 @@
 
 #include "fdf.h"
 
-static t_list   *get_by_id(t_list *points, unsigned int id)
+static t_list	*get_by_id(t_list *points, unsigned int id)
 {
-	int i;
-	t_list  *tmp;
+	int		i;
+	t_list	*tmp;
 
 	if (!points)
 		return (NULL);
@@ -27,10 +27,7 @@ static t_list   *get_by_id(t_list *points, unsigned int id)
 	return (tmp);
 }
 
-#define COL_COUNT 19
-#define ROW_COUNT 11
-
-void    draw_surface(t_list *points, int row, int col, t_mlx *env)
+void			draw_surface(t_list *points, int row, int col, t_mlx *env)
 {
 	t_px *a;
 	t_px *b;
@@ -41,16 +38,15 @@ void    draw_surface(t_list *points, int row, int col, t_mlx *env)
 	else
 		a->flag = 1;
 	if (col < env->xmax - 1)
-	{  
+	{
 		b = (t_px*)((get_by_id(points, row * env->xmax + col + 1)->content));
 		plot_segment(a, b, env);
 		draw_surface(points, row, col + 1, env);
 	}
 	if (row < env->ymax)
-	{  
+	{
 		b = (t_px*)((get_by_id(points, (row + 1) * env->xmax + col)->content));
 		plot_segment(a, b, env);
 		draw_surface(points, row + 1, col, env);
 	}
 }
-

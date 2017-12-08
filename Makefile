@@ -24,7 +24,10 @@ MLX_DIR = ./lib/mlx
 FILES =	main.c \
 		draw_tools.c \
 		draw.c \
-		parser.c
+		parser.c \
+		bind.c \
+		process_coords.c \
+		utl.c
 
 SRC =	$(addprefix $(SRC_DIR)/, $(FILES)))
 OBJ = 	$(addprefix $(OBJ_DIR)/, $(FILES:.c=.o))
